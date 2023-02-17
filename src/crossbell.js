@@ -5,16 +5,19 @@ import axios from 'axios';
 export async function getAllNotes(cursor=null, limit=20, includeCharacterMetadata=false) {
   const response = await axios.get(`https://indexer.crossbell.io/v1/characters/38333/feed/follow?limit=${limit}${cursor ? '&cursor=' + cursor : ''}&includeCharacterMetadata=${includeCharacterMetadata}`);
 
-  return response.data.list.map(item => {
-    return {
-      title: item.note.metadata.title,
-      author: item.note.character.metadata.name,
-      content: item.note.metadata.content.content,
-      time: item.note.createdAt,
-      tags: item.note.metadata.content.tags,
-      cursor: item.cursor
-    };
-  });
+  console.log(response.data.list);
+  return {
+    list: response.data.list.map(item => {
+      return {
+        title: item.note.metadata.content.title,
+        author: item.note.character.metadata.content.name,
+        content: item.note.metadata.content.content,
+        time: item.note.createdAt,
+        tags: item.note.metadata.content.tags
+      };
+    }),
+    cursor: response.data.cursor
+  };
 }
 
 // get notes of character 
