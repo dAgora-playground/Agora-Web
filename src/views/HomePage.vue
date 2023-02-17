@@ -1,14 +1,16 @@
-<script setup>
+<script>
     import { getAllNotes } from "../crossbell";
 
-    (async () => {
-        const notes = await getAllNotes();
-        console.log("all notes", notes);
-    })(); 
 
-    
-
-    
+    export default defineComponent({
+    async setup() {
+            const notes = await getAllNotes();
+            console.log("all notes", notes.list);
+            return {
+                items: notes.list
+            }
+    }
+});
     
 </script>
 <template>
@@ -37,8 +39,8 @@
             Discover
         </div>
 
-        <div class="cordBox">
-            <div class="cord" v-for="item in notes">
+        <div class="cardBox">
+            <div class="card" v-for="(item,index) in items">
                 <div class="title">
                     {{ item.title }}
                 </div>
@@ -47,18 +49,18 @@
                         <img src="" alt="">
                     </div>
                     <div class="author-name">
-                        {{ item.name }}
+                        {{ item.author }}
                     </div>
                 </div>
 
                 <div class="content">
-                    {{ item.content }}    
+                    {{ item.content }}
                 </div>
 
-                <div class="pulished-time">Today 11:30 pm</div>
+                <div class="pulished-time">{{ item.time }}</div>
 
                 <div class="content-tags">
-                    <div class="tag">{{item.tags}}</div>
+                    <div class="tag">{{ item.tags }}</div>
                 </div>
             </div>
         </div>
