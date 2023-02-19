@@ -2,7 +2,7 @@
 const name = ref('dagora')
 </script>
 <template>
-  <div>hey {{ name }}, this is helloworld components</div>
+  <div>hey {{ name }}, this is dAgora!</div>
 </template>
 
 <style scoped></style>

@@ -5,6 +5,7 @@ import axios from 'axios';
 export async function getAllNotes(cursor=null, limit=10, includeCharacterMetadata=false) {
   const response = await axios.get(`https://indexer.crossbell.io/v1/characters/38333/feed/follow?limit=${limit}${cursor ? '&cursor=' + cursor : ''}&includeCharacterMetadata=${includeCharacterMetadata}`);
 
+  console.log("response Data",response);
   console.log("49045 Data",response.data.list);
   return {
     list: response.data.list.map(item => {

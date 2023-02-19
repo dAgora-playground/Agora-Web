@@ -18,45 +18,52 @@
         <div class="side-bar">
             <img src="../../public/vector.png" alt="agora-logo" class="agora-logo">
 
-            <!-- <div class="navigation">
+            <div class="navigation">
                 <div class="item-logo">
                     <img src="../../public/hemisphereEastGray.png" alt="home-icon" class="item-img">
                 </div>
                 <div class="item-logo">
+                    <img src="../../public/ArchiveTray.png" alt="user-icon" class="item-img">
+                </div>
+                <div class="item-logo">
                     <img src="../../public/userCircle.png" alt="user-icon" class="item-img">
                 </div>
-            </div> -->
+            </div>
 
             <div class="agora-logo"></div>
         </div>
 
         <div class="main-box">
             <div class="top-nav">
-                <div class="main-titile">Home</div>
+                <div class="main-titile">dAgora</div>
                 <div class="searchBox">
                     <form class="search-bar">
                         <input type="text" placeholder="Search dAgora...">
-                        <!-- <button type="submit">
-                            <img src="../../public/Search.png" alt="">
-                        </button> -->
                     </form>
                 </div>
-                <div class="connect-button">Connect wallet</div>
+                <div class="connect-button">
+                    Connect wallet
+                </div>
             </div>
 
-            <div class="tag">
+            <!-- <div class="tag">
                 Discover
-            </div>
+            </div> -->
 
             <div class="cardBox">
                 <div class="card" v-for="(item,index) in items">
-                    <div class="title">
-                        {{ item.title }}
-                    </div>
-                    <div class="author-info">
-                        <div class="avtor">
-                            <img src="" alt="">
+
+                    <div class="card-top">
+                        <div class="title">
+                            {{ item.title }}
                         </div>
+                        <div class="collect-button">Collect</div>
+                    </div>
+
+                    <div class="author-info">
+                                <!-- <div class="avtor">
+                                    <img src="" alt="">
+                                </div> -->
                         <div class="author-name">
                             {{ item.author }}
                         </div>
@@ -80,16 +87,22 @@
 
 *{
     .top-box{
+        margin: 0;
         display: flex;
         justify-content: space-between;
-        // background: linear-gradient(to right, green, orange);
+        background: linear-gradient(to right,#202020, green, #F3A34B, #202020);
+        backdrop-filter: blur(6px);
         .side-bar{
-            width: 1200px;
-            height: 105px;
-            // background-color: rgba(20,26,22,0.2); ;
             display: flex;
-            // flex-direction: row-reverse;
+            flex-direction: column;
             justify-content: space-between;
+
+            border: #998882 1px solid;
+            border-radius: 0px 16px 16px 0px;
+            background-color: rgba(26, 20, 20, 0.8);
+            backdrop-filter: blur(10px);
+            margin: 20px 20px 20px 0px;
+            padding: 24px 24px;
 
             .agora-logo{
                 width: 58px;
@@ -103,17 +116,29 @@
 
             .navigation{
                 display: flex;
-                justify-content: space-around;
+                flex-direction: column;
+                // justify-content: space-between;
+                .item-logo{
+                    margin: 12px;
+                }
+
+
             }
 
         }
 
         .main-box{
+            border: #998882 1px solid;
+            border-radius: 16px 0px 0px 16px;
+            background-color: rgba(26, 20, 20, 0.8);
+            backdrop-filter: blur(10px);
+            margin: 20px 0px 20px 20px;
+            padding: 24px 38px;
             .top-nav{
                 display: flex;
                 justify-content: space-between; 
                 .main-titile{
-                    color: black;
+                    color: #FFFFFF;
                     font-size: 40px;
                     line-height: 48px;
                 }
@@ -147,20 +172,65 @@
                     }
                 }
                 .connect-button {
-                    // width: 140px;
-                    // height: 40px;
-                    border-radius: 4px;
-                    background-color: orange;
+                    margin: 8px 0;
+                    display: flex;
+                    align-items: center;
+                    border-radius: 8px;
+                    background-color: #F3A34B;
                     border: none;
-                    color: white;
-                    padding: 7px 16px;
+                    color: #000000;
+                    padding: 8px 16px;
                     text-align: center;
-                    text-decoration: none;
-                    display: inline-block;
                     font-size: 16px;
-                    margin: 4px 2px;
                     cursor: pointer;
-                    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+                }
+            }
+
+            .cardBox{
+                color: #FFFFFF;
+                margin: 72px 0px 0px 0px;
+                .card {
+                    border: #998882 1px solid;
+                    border-radius: 16px;
+                    margin-bottom: 24px;
+                    padding: 16px;
+                    .card-top{
+                            display: flex;
+                            justify-content: space-between;
+                            margin-bottom: 8px;
+                            .title{
+                                font-size: 24px;
+                            }
+                            .collect-button{
+                                background-color: #8AE064;
+                                color: #000000;
+                                text-align: center;
+                                padding: 8px 16px;
+                                border: none;
+                                border-radius: 8px;
+                            }
+                    }
+                    .author-info{
+                        margin-left: 12px;
+                        margin-bottom: 16px;
+                        .author-name{
+                            color: #CCC4C4;
+                            font-size: 12px;
+                        }
+
+                    }
+                    .content{
+                        font-size: 18px;
+                        line-height: 1.5;
+                        margin-bottom: 16px;
+                    }
+
+                    .pulished-time{
+                        font-size: 12px;
+                        color:#A4A4A4;
+                    }
+
+
                 }
             }
         }
