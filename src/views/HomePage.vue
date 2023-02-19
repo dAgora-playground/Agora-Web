@@ -199,7 +199,7 @@
                             justify-content: space-between;
                             margin-bottom: 8px;
                             .title{
-                                font-size: 24px;
+                                font-size: 22px;
                             }
                             .collect-button{
                                 background-color: #8AE064;
@@ -220,7 +220,7 @@
 
                     }
                     .content{
-                        font-size: 18px;
+                        font-size: 16px;
                         line-height: 1.5;
                         margin-bottom: 16px;
                     }
