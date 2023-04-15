@@ -5,7 +5,7 @@
     async setup() {
       const notes = await getAllNotes();
       console.log("all notes", notes.list);
-      const siteName = import.meta.env.VITE_SITE_NAME;
+      const siteName = import.meta.env.VITE_APP_TITLE;
       document.title = siteName;
       return {
         items: notes.list,
