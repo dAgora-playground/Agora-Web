@@ -44,7 +44,7 @@
           let bottomOfWindow =
             document.documentElement.scrollTop + window.innerHeight >=
             document.documentElement.offsetHeight;
-          if (bottomOfWindow) {
+          if (bottomOfWindow && this.cursor) {
             const notes = await getAllNotes(this.cursor);
             this.cursor = notes.cursor;
 
