@@ -3,11 +3,12 @@ import axios from 'axios';
 const sourceType = {
   discord: 'discord server: '
 }
+const defaultCharacterID = 38333;
 
 // get all post from https://indexer.crossbell.io/v1/characters/38333/feed?cursor=0&limit=20&includeCharacterMetadata=true
 //  https://indexer.crossbell.io/v1/characters/38333/feed/follow?limit=20&type=POST_NOTE&includeCharacterMetadata=true
 export async function getAllNotes(cursor=null, limit=10, includeCharacterMetadata=false) {
-  const response = await axios.get(`https://indexer.crossbell.io/v1/characters/${import.meta.env.VITE_CHARCTER_ID}/feed/follow?limit=${limit}${cursor ? '&cursor=' + cursor : ''}&includeCharacterMetadata=${includeCharacterMetadata}`);
+  const response = await axios.get(`https://indexer.crossbell.io/v1/characters/${import.meta.env.VITE_CHARCTER_ID || defaultCharacterID}/feed/follow?limit=${limit}${cursor ? '&cursor=' + cursor : ''}&includeCharacterMetadata=${includeCharacterMetadata}`);
   return {
     list: response.data.list.map(item => {
       const sources = JSON.parse(JSON.stringify(item.note.metadata.content.sources))
@@ -15,11 +16,13 @@ export async function getAllNotes(cursor=null, limit=10, includeCharacterMetadat
       if (sources[1].startsWith(sourceType.discord)) {
         formalSource.type = 'discord'
         formalSource.server = sources[1].substr(sourceType.discord.length);
-        formalSource.channel = sources[2]
       } else {
         formalSource.type = 'unknown'
         formalSource.server = sources[1];
       }
+      formalSource.channel = sources[2].substr('channel: '.length);
+      formalSource.url = item.note.metadata.content.external_urls.length ? item.note.metadata.content.external_urls[0] : null;
+
       return {
         title: item.note.metadata.content.title,
         author: item.note.character.metadata.content.name,

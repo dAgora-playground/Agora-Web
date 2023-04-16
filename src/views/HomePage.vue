@@ -118,13 +118,28 @@
           <div class="pulished-time">
             {{ formatDate(item.time) }}
 
-            <div class="source">
+            <a
+              class="source"
+              :href="item.source.url || '#'"
+              target="_blank"
+              :title="item.source.url || ''"
+            >
               <img
                 class="inline"
                 v-if="item.source.type === 'discord'"
                 src="/source-discord.svg"
-              /><span>{{ item.source.server }}</span>
-            </div>
+              />
+              <img class="inline" v-else src="/source-telegram.svg" /><span>{{
+                item.source.server
+              }}</span>
+              <img
+                class="inline"
+                v-if="item.source.channel"
+                src="/channel.svg"
+              /><span v-if="item.source.channel">{{
+                item.source.channel
+              }}</span>
+            </a>
           </div>
 
           <div class="tags">
@@ -286,8 +301,12 @@
             color: #d6cd8d;
             margin-left: 8.5px;
             display: inline;
+            img {
+              vertical-align: text-bottom;
+            }
             span {
-              margin-left: 5px;
+              vertical-align: middel;
+              margin: 0 8px 0 5px;
             }
           }
           .tags {
