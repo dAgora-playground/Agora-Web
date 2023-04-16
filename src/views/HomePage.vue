@@ -75,10 +75,13 @@
       <div class="agora-logo"></div>
     </div>
 
-    <div class="main-box ml-0">
+    <div class="main-box my-5 ml-0 md:ml-36">
       <div class="top-nav">
-        <div class="main-titile">Home</div>
-        <div class="searchBox md:hidden lg:block">
+        <div class="main-titile hidden md:block">Home</div>
+
+        <img :src="logo" alt="agora-logo" class="agora-logo block md:hidden" />
+
+        <div class="searchBox hidden lg:block">
           <form class="search-bar">
             <input type="text" :placeholder="`Search ${siteName}...`" />
           </form>
@@ -90,7 +93,7 @@
                 Discover
             </div> -->
 
-      <div class="cardBox">
+      <div class="cardBox overflow-hidden">
         <div class="card" v-for="(item, index) in items">
           <div class="card-top">
             <div class="title">
@@ -108,7 +111,7 @@
             </div>
           </div>
 
-          <div class="content">
+          <div class="content break-words">
             {{ item.content }}
           </div>
 
@@ -193,7 +196,7 @@
       border-radius: 16px 0px 0px 16px;
       background-color: rgba(26, 20, 20, 0.8);
       width: 100%;
-      margin: 20px 0px 20px 148px;
+
       padding: 24px 38px;
       .top-nav {
         display: flex;
