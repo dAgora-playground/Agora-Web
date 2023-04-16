@@ -20,8 +20,8 @@ export async function getAllNotes(cursor=null, limit=10, includeCharacterMetadat
         formalSource.type = 'unknown'
         formalSource.server = sources[1];
       }
-      formalSource.channel = sources[2].substr('channel: '.length);
-      formalSource.url = item.note.metadata.content.external_urls.length ? item.note.metadata.content.external_urls[0] : null;
+      formalSource.channel = sources[2] ? sources[2].substr('channel: '.length) : '';
+      formalSource.url = item.note.metadata.content.external_urls ? item.note.metadata.content.external_urls[0] : null;
 
       return {
         title: item.note.metadata.content.title,
