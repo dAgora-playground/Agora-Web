@@ -10,7 +10,7 @@ const defaultCharacterID = 38333;
 export async function getAllNotes(cursor=null, limit=10, includeCharacterMetadata=false) {
   const response = await axios.get(`https://indexer.crossbell.io/v1/characters/${import.meta.env.VITE_CHARCTER_ID || defaultCharacterID}/feed/follow?limit=${limit}${cursor ? '&cursor=' + cursor : ''}&includeCharacterMetadata=${includeCharacterMetadata}`);
   return {
-    list: response.data.list.map(item => {
+    list: response.data.list.filter(item => item.note).map(item => {
       const sources = JSON.parse(JSON.stringify(item.note.metadata.content.sources))
       const formalSource = {};
       if (sources[1].startsWith(sourceType.discord)) {

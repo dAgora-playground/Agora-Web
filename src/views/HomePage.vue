@@ -46,6 +46,7 @@
             document.documentElement.offsetHeight;
           if (bottomOfWindow) {
             const notes = await getAllNotes(this.cursor);
+            this.cursor = notes.cursor;
 
             this.items = this.items.concat(notes.list);
           }
