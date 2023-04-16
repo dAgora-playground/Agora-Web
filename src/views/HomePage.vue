@@ -5,19 +5,38 @@
     async setup() {
       const notes = await getAllNotes();
       console.log("all notes", notes.list);
+
       const siteName = import.meta.env.VITE_APP_TITLE;
       document.title = siteName;
+
       return {
         items: notes.list,
         siteName,
       };
     },
+
     data() {
       const logo = import.meta.env.VITE_LOGO;
-      console.log("logo", logo, typeof logo);
       return {
         logo,
       };
+    },
+
+    methods: {
+      formatDate(date) {
+        // to local date time format
+        return new Intl.DateTimeFormat(
+          window.navigator.userLanguage || window.navigator.language,
+          {
+            year: "numeric",
+            month: "short",
+            day: "2-digit",
+            hour: "numeric",
+            minute: "numeric",
+            second: "numeric",
+          }
+        ).format(new Date(date));
+      },
     },
   });
 </script>
@@ -90,157 +109,161 @@
             {{ item.content }}
           </div>
 
-          <div class="pulished-time">{{ item.time }}</div>
+          <div class="pulished-time">
+            {{ formatDate(item.time) }}
+          </div>
 
-          <!-- <div class="content-tags">
-                        <div class="tag">{{ item.tags }}</div>
-                    </div> -->
+          <div class="tags">
+            <Tag v-for="(tag, index) in item.tags">#{{ tag }}</Tag>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 <style scoped lang="scss">
-  * {
-    .top-box {
-      margin: 0;
+  .top-box {
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    background: linear-gradient(to right, #202020, green, #f3a34b, #202020);
+    backdrop-filter: blur(6px);
+    .side-bar {
       display: flex;
+      flex-direction: column;
       justify-content: space-between;
-      background: linear-gradient(to right, #202020, green, #f3a34b, #202020);
-      backdrop-filter: blur(6px);
-      .side-bar {
+
+      border: #998882 1px solid;
+      border-radius: 0px 16px 16px 0px;
+      background-color: rgba(26, 20, 20, 0.8);
+      backdrop-filter: blur(10px);
+      margin: 20px 20px 20px 0px;
+      padding: 24px 24px;
+
+      .agora-logo {
+        width: 58px;
+        height: 58px;
+      }
+
+      .item-img {
+        width: 30px;
+        height: 30px;
+      }
+
+      .navigation {
         display: flex;
         flex-direction: column;
+        // justify-content: space-between;
+        .item-logo {
+          margin: 12px;
+        }
+      }
+    }
+
+    .main-box {
+      border: #998882 1px solid;
+      border-radius: 16px 0px 0px 16px;
+      background-color: rgba(26, 20, 20, 0.8);
+      backdrop-filter: blur(10px);
+      margin: 20px 0px 20px 20px;
+      padding: 24px 38px;
+      .top-nav {
+        display: flex;
         justify-content: space-between;
-
-        border: #998882 1px solid;
-        border-radius: 0px 16px 16px 0px;
-        background-color: rgba(26, 20, 20, 0.8);
-        backdrop-filter: blur(10px);
-        margin: 20px 20px 20px 0px;
-        padding: 24px 24px;
-
-        .agora-logo {
-          width: 58px;
-          height: 58px;
+        .main-titile {
+          color: #ffffff;
+          font-size: 40px;
+          line-height: 48px;
         }
 
-        .item-img {
-          width: 30px;
-          height: 30px;
-        }
-
-        .navigation {
-          display: flex;
-          flex-direction: column;
-          // justify-content: space-between;
-          .item-logo {
-            margin: 12px;
+        .searchBox {
+          padding: 12px 0;
+          .search-bar {
+            display: flex;
+            justify-content: center;
+            height: 32px;
+            input {
+              width: 400px;
+              border-radius: 20px;
+              border: 1px solid #998882;
+              transition: 0.3s linear;
+              float: right;
+            }
+            input:focus {
+              width: 300px;
+            }
+            button {
+              background: none;
+              top: -2px;
+              right: 0;
+            }
+            button:before {
+              content: "\f002";
+              font-family: FontAwesome;
+              color: #998882;
+            }
           }
+        }
+        .connect-button {
+          margin: 8px 0;
+          display: flex;
+          align-items: center;
+          border-radius: 8px;
+          background-color: #f3a34b;
+          border: none;
+          color: #000000;
+          padding: 8px 16px;
+          text-align: center;
+          font-size: 16px;
+          cursor: pointer;
         }
       }
 
-      .main-box {
-        border: #998882 1px solid;
-        border-radius: 16px 0px 0px 16px;
-        background-color: rgba(26, 20, 20, 0.8);
-        backdrop-filter: blur(10px);
-        margin: 20px 0px 20px 20px;
-        padding: 24px 38px;
-        .top-nav {
-          display: flex;
-          justify-content: space-between;
-          .main-titile {
-            color: #ffffff;
-            font-size: 40px;
-            line-height: 48px;
-          }
-
-          .searchBox {
-            padding: 12px 0;
-            .search-bar {
-              display: flex;
-              justify-content: center;
-              height: 32px;
-              input {
-                width: 400px;
-                border-radius: 20px;
-                border: 1px solid #998882;
-                transition: 0.3s linear;
-                float: right;
-              }
-              input:focus {
-                width: 300px;
-              }
-              button {
-                background: none;
-                top: -2px;
-                right: 0;
-              }
-              button:before {
-                content: "\f002";
-                font-family: FontAwesome;
-                color: #998882;
-              }
-            }
-          }
-          .connect-button {
-            margin: 8px 0;
+      .cardBox {
+        color: #ffffff;
+        margin: 72px 0px 0px 0px;
+        .card {
+          border: #998882 1px solid;
+          border-radius: 16px;
+          margin-bottom: 24px;
+          padding: 16px;
+          .card-top {
             display: flex;
-            align-items: center;
-            border-radius: 8px;
-            background-color: #f3a34b;
-            border: none;
-            color: #000000;
-            padding: 8px 16px;
-            text-align: center;
-            font-size: 16px;
-            cursor: pointer;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            .title {
+              font-size: 22px;
+            }
+            .collect-button {
+              background-color: #8ae064;
+              color: #000000;
+              text-align: center;
+              padding: 8px 16px;
+              border: none;
+              border-radius: 8px;
+            }
           }
-        }
-
-        .cardBox {
-          color: #ffffff;
-          margin: 72px 0px 0px 0px;
-          .card {
-            border: #998882 1px solid;
-            border-radius: 16px;
-            margin-bottom: 24px;
-            padding: 16px;
-            .card-top {
-              display: flex;
-              justify-content: space-between;
-              margin-bottom: 8px;
-              .title {
-                font-size: 22px;
-              }
-              .collect-button {
-                background-color: #8ae064;
-                color: #000000;
-                text-align: center;
-                padding: 8px 16px;
-                border: none;
-                border-radius: 8px;
-              }
-            }
-            .author-info {
-              margin-left: 12px;
-              margin-bottom: 16px;
-              .author-name {
-                color: #ccc4c4;
-                font-size: 12px;
-              }
-            }
-            .content {
-              font-size: 16px;
-              line-height: 1.5;
-              margin-bottom: 16px;
-            }
-
-            .pulished-time {
+          .author-info {
+            margin-bottom: 16px;
+            .author-name {
+              color: #ccc4c4;
               font-size: 12px;
-              color: #a4a4a4;
             }
+          }
+          .content {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 16px;
+          }
+
+          .pulished-time {
+            font-size: 12px;
+            color: #a4a4a4;
+          }
+          .tags {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
           }
         }
       }
