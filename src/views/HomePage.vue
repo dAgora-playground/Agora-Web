@@ -162,6 +162,7 @@
       // justify-content: space-between;
 
       border: #998882 1px solid;
+      border-left: none;
       border-radius: 0px 16px 16px 0px;
       background-color: rgba(26, 20, 20, 0.8);
       margin: 20px 20px 20px 0px;
@@ -190,6 +191,7 @@
     .main-box {
       min-height: 100vh;
       border: #998882 1px solid;
+      border-right: none;
       border-radius: 16px 0px 0px 16px;
       background-color: rgba(26, 20, 20, 0.8);
       width: 100%;
