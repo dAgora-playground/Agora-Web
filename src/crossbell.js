@@ -7,7 +7,7 @@ const sourceType = {
 // get all post from https://indexer.crossbell.io/v1/characters/38333/feed?cursor=0&limit=20&includeCharacterMetadata=true
 //  https://indexer.crossbell.io/v1/characters/38333/feed/follow?limit=20&type=POST_NOTE&includeCharacterMetadata=true
 export async function getAllNotes(cursor=null, limit=10, includeCharacterMetadata=false) {
-  const response = await axios.get(`https://indexer.crossbell.io/v1/characters/38333/feed/follow?limit=${limit}${cursor ? '&cursor=' + cursor : ''}&includeCharacterMetadata=${includeCharacterMetadata}`);
+  const response = await axios.get(`https://indexer.crossbell.io/v1/characters/${import.meta.env.VITE_CHARCTER_ID}/feed/follow?limit=${limit}${cursor ? '&cursor=' + cursor : ''}&includeCharacterMetadata=${includeCharacterMetadata}`);
   return {
     list: response.data.list.map(item => {
       const sources = JSON.parse(JSON.stringify(item.note.metadata.content.sources))

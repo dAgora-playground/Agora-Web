@@ -2,23 +2,26 @@
   import { getAllNotes } from "../crossbell";
 
   export default defineComponent({
-    async setup() {
-      const notes = await getAllNotes();
-      console.log("all notes", notes.list);
-
+    async beforeMount() {
       const siteName = import.meta.env.VITE_APP_TITLE;
-      document.title = siteName;
+      this.siteName = siteName;
 
-      return {
-        items: notes.list,
-        siteName,
-      };
+      const notes = await getAllNotes();
+      this.items = notes.list;
+      this.cursor = notes.cursor;
+    },
+
+    async mounted() {
+      this.getNextPageData();
     },
 
     data() {
       const logo = import.meta.env.VITE_LOGO;
       return {
+        siteName: "",
+        items: [],
         logo,
+        cursor: null,
       };
     },
 
@@ -37,35 +40,38 @@
           }
         ).format(new Date(date));
       },
+
+      getNextPageData() {
+        window.onscroll = async () => {
+          // detect if the user has scrolled to the bottom of the page
+          let bottomOfWindow =
+            document.documentElement.scrollTop + window.innerHeight >=
+            document.documentElement.offsetHeight;
+          if (bottomOfWindow) {
+            const notes = await getAllNotes(this.cursor);
+
+            this.items = this.items.concat(notes.list);
+          }
+        };
+      },
     },
   });
 </script>
+
 <template>
   <div class="top-box">
     <div class="side-bar">
       <img :src="logo" alt="agora-logo" class="agora-logo" />
 
       <div class="navigation">
-        <div class="item-logo">
-          <img
-            src="../../public/hemisphereEastGray.png"
-            alt="home-icon"
-            class="item-img"
-          />
+        <div class="item-logo hidden">
+          <img src="/hemisphereEastGray.png" alt="home-icon" class="item-img" />
         </div>
-        <div class="item-logo">
-          <img
-            src="../../public/ArchiveTray.png"
-            alt="user-icon"
-            class="item-img"
-          />
+        <div class="item-logo hidden">
+          <img src="/ArchiveTray.png" alt="user-icon" class="item-img" />
         </div>
-        <div class="item-logo">
-          <img
-            src="../../public/userCircle.png"
-            alt="user-icon"
-            class="item-img"
-          />
+        <div class="item-logo hidden">
+          <img src="/userCircle.png" alt="user-icon" class="item-img" />
         </div>
       </div>
 
@@ -135,12 +141,13 @@
     display: flex;
     justify-content: space-between;
     background: linear-gradient(to right, #202020, green, #f3a34b, #202020);
-    backdrop-filter: blur(6px);
+
     .side-bar {
+      position: fixed;
       height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      // display: flex;
+      // flex-direction: column;
+      // justify-content: space-between;
 
       border: #998882 1px solid;
       border-radius: 0px 16px 16px 0px;
@@ -160,8 +167,7 @@
       }
 
       .navigation {
-        display: none;
-        // display: flex;
+        display: flex;
         flex-direction: column;
         // justify-content: space-between;
         .item-logo {
@@ -171,11 +177,13 @@
     }
 
     .main-box {
+      min-height: 100vh;
       border: #998882 1px solid;
       border-radius: 16px 0px 0px 16px;
       background-color: rgba(26, 20, 20, 0.8);
       backdrop-filter: blur(10px);
-      margin: 20px 0px 20px 20px;
+      width: 100%;
+      margin: 20px 0px 20px 148px;
       padding: 24px 38px;
       .top-nav {
         display: flex;

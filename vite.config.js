@@ -14,11 +14,8 @@ import {
   VueUseDirectiveResolver
 } from 'unplugin-vue-components/resolvers'
 
-
-
 export default ({ mode }) => {
   const env = loadEnv(mode, process.cwd())
-  console.log(env)
   return {
     server: {
       port: 3004,
