@@ -140,7 +140,9 @@
           </div>
 
           <div class="tags">
-            <Tag v-for="(tag, index) in item.tags" v-if="tag">#{{ tag }}</Tag>
+            <div v-for="(tag, index) in item.tags">
+              <Tag v-if="tag">#{{ tag }}</Tag>
+            </div>
           </div>
         </div>
       </div>
