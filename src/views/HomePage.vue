@@ -90,10 +90,6 @@
         <div class="connect-button">Connect wallet</div>
       </div>
 
-      <!-- <div class="tag">
-                Discover
-            </div> -->
-
       <div class="cardBox overflow-hidden">
         <div class="card" v-for="(item, index) in items">
           <div class="card-top">
@@ -144,7 +140,7 @@
           </div>
 
           <div class="tags">
-            <Tag v-for="(tag, index) in item.tags">#{{ tag }}</Tag>
+            <Tag v-for="(tag, index) in item.tags" v-if="tag">#{{ tag }}</Tag>
           </div>
         </div>
       </div>
