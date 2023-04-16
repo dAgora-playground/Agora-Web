@@ -1,5 +1,5 @@
 <script setup>
-import { RouterView } from 'vue-router'
+  import { RouterView } from "vue-router";
 </script>
 
 <template>
@@ -7,7 +7,6 @@ import { RouterView } from 'vue-router'
 </template>
 
 <style scoped></style>
-
 
 <!-- <script setup>
 import HelloWorld from './components/HelloWorld.vue'

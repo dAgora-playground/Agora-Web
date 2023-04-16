@@ -114,6 +114,7 @@
 
             <div class="source">
               <img
+                class="inline"
                 v-if="item.source.type === 'discord'"
                 src="/source-discord.svg"
               /><span>{{ item.source.server }}</span>
@@ -136,6 +137,7 @@
     background: linear-gradient(to right, #202020, green, #f3a34b, #202020);
     backdrop-filter: blur(6px);
     .side-bar {
+      height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -158,7 +160,8 @@
       }
 
       .navigation {
-        display: flex;
+        display: none;
+        // display: flex;
         flex-direction: column;
         // justify-content: space-between;
         .item-logo {
@@ -190,6 +193,8 @@
             justify-content: center;
             height: 32px;
             input {
+              background-color: transparent;
+              padding: 0 1em;
               width: 400px;
               border-radius: 20px;
               border: 1px solid #998882;
@@ -213,7 +218,8 @@
         }
         .connect-button {
           margin: 8px 0;
-          display: flex;
+          display: none;
+          // display: flex;
           align-items: center;
           border-radius: 8px;
           background-color: #f3a34b;
@@ -242,6 +248,7 @@
               font-size: 22px;
             }
             .collect-button {
+              display: none;
               background-color: #8ae064;
               color: #000000;
               text-align: center;
