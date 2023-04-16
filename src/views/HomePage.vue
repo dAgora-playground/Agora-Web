@@ -3,9 +3,6 @@
 
   export default defineComponent({
     async beforeMount() {
-      const siteName = import.meta.env.VITE_APP_TITLE;
-      this.siteName = siteName;
-
       const notes = await getAllNotes();
       this.items = notes.list;
       this.cursor = notes.cursor;
@@ -18,10 +15,10 @@
     data() {
       const logo = import.meta.env.VITE_LOGO;
       return {
-        siteName: "",
         items: [],
         logo,
         cursor: null,
+        siteName: import.meta.env.VITE_APP_TITLE,
       };
     },
 
@@ -60,7 +57,7 @@
 
 <template>
   <div class="top-box">
-    <div class="side-bar">
+    <div class="side-bar hidden md:block">
       <img :src="logo" alt="agora-logo" class="agora-logo" />
 
       <div class="navigation">
@@ -78,12 +75,12 @@
       <div class="agora-logo"></div>
     </div>
 
-    <div class="main-box">
+    <div class="main-box ml-0">
       <div class="top-nav">
-        <div class="main-titile">{{ siteName }}</div>
-        <div class="searchBox">
+        <div class="main-titile">Home</div>
+        <div class="searchBox md:hidden lg:block">
           <form class="search-bar">
-            <input type="text" placeholder="Search dAgora..." />
+            <input type="text" :placeholder="`Search ${siteName}...`" />
           </form>
         </div>
         <div class="connect-button">Connect wallet</div>
@@ -167,7 +164,6 @@
       border: #998882 1px solid;
       border-radius: 0px 16px 16px 0px;
       background-color: rgba(26, 20, 20, 0.8);
-      backdrop-filter: blur(10px);
       margin: 20px 20px 20px 0px;
       padding: 24px 24px;
 
@@ -196,7 +192,6 @@
       border: #998882 1px solid;
       border-radius: 16px 0px 0px 16px;
       background-color: rgba(26, 20, 20, 0.8);
-      backdrop-filter: blur(10px);
       width: 100%;
       margin: 20px 0px 20px 148px;
       padding: 24px 38px;
