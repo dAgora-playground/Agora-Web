@@ -111,6 +111,13 @@
 
           <div class="pulished-time">
             {{ formatDate(item.time) }}
+
+            <div class="source">
+              <img
+                v-if="item.source.type === 'discord'"
+                src="/source-discord.svg"
+              /><span>{{ item.source.server }}</span>
+            </div>
           </div>
 
           <div class="tags">
@@ -259,6 +266,14 @@
           .pulished-time {
             font-size: 12px;
             color: #a4a4a4;
+          }
+          .source {
+            color: #d6cd8d;
+            margin-left: 8.5px;
+            display: inline;
+            span {
+              margin-left: 5px;
+            }
           }
           .tags {
             display: flex;
